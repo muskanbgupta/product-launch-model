@@ -24,6 +24,8 @@ def chart():
         st.warning(f"Let's Observe Product: {name}",width=300)
         fig, ax = plt.subplots()
         ax.plot(st.session_state.popularity)
+        if(st.session_state.popularity==int):
+             st.session_state.popularity+=0.0
         ax.set_xlabel("Days")
         ax.set_ylabel("Popularity")
         ax.set_title("Product Popularity Growth")
@@ -109,7 +111,7 @@ with Intro:
 with Config:
         name=st.text_input("**_Enter Product Name_**") 
         p0=st.number_input("**_Initial User_**",value=100)
-        k=st.number_input("**_Market Size of Product_** (Popularity of Product)",value=1000)
+        k=st.number_input("**_Market Size of Product_** (Popularity of Product)",value=1000,min_value=1)
         r=st.number_input("**_Earlyer Adopter of Product_**  (Growth rate)",value=0.02)
         alpha=st.number_input("**_Network effect strength_**  (Users Influence other people to buy the Product.)",value=0.05)
         days=st.number_input("**_Simulation days_**  (Number of days the model runs)",value=31)
@@ -118,7 +120,10 @@ with Config:
         alpha=float(alpha)
         days=int(days)
         if st.button("**Run Simulation**"):
-            st.session_state.popularity=popularity_model(p0,k,r,alpha,days)
+            if(k<=0):
+                 st.warning("Market Size Cannot be Zero.\n Please Enter Valid Number")
+            else:
+                st.session_state.popularity=popularity_model(p0,k,r,alpha,days)
         if "popularity" in st.session_state:
             chart()     
 with Analysis:
