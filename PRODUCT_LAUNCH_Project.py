@@ -1,5 +1,26 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import base64
+
+def add_bg(image_file):
+    with open(image_file, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+add_bg("bg.png")
 st.set_page_config(
     page_title="Product Launch Predictor",
     layout="wide"
@@ -24,11 +45,11 @@ def chart():
         st.warning(f"Let's Observe Product: {name}",width=300)
         fig, ax = plt.subplots()
         if r <= 0.02 and alpha <= 0.02:
-            label = "Low Growth"
+             label = "Low Growth"
         elif r < 0.02 and alpha <= 0.05:
              label = "Medium Growth"
         else:
-            label = "High Growth"
+             label = "High Growth"
         ax.plot(st.session_state.popularity,label=label)
         ax.legend()
         ax.set_xlabel("Days")
@@ -49,13 +70,13 @@ def chart():
         elif hype > 50:
             st.info("Product may become popular.")
         else:
-            st.warning("Product growth may be slow.")
+            st.warning("⚠ Product growth may be slow.")
 
         st.subheader(f"Earlyer Adopters: {early}") 
         if early > 100:
-            st.success("People are Loving the Product!")
+            st.success("People are Loving the Product!💓")
         elif early > 50:
-            st.info("People May like the Product!")
+            st.info("People May like the Product!😊")
         else:
             st.warning("⚠ Product are not Liking the Product.")
 
@@ -193,3 +214,6 @@ if st.session_state.page==2:
         👥 User distribution (early adopters, buyers, passive users)
         📊 Prediction of product success""")
         st.button("**BACK**",on_click=pageone)
+            
+        
+    
