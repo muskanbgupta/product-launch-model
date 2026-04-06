@@ -23,9 +23,14 @@ def popularity_model(p0,k,r,alpha,days):
 def chart():
         st.warning(f"Let's Observe Product: {name}",width=300)
         fig, ax = plt.subplots()
-        ax.plot(st.session_state.popularity)
-        if(st.session_state.popularity==int):
-             st.session_state.popularity+=0.0
+        if r < 0.02 and alpha < 0.02:
+            label = "Low Growth"
+        elif r < 0.05 and alpha < 0.05:
+             label = "Medium Growth"
+        else:
+            label = "High Growth"
+        ax.plot(st.session_state.popularity,label=label)
+        ax.legend()
         ax.set_xlabel("Days")
         ax.set_ylabel("Popularity")
         ax.set_title("Product Popularity Growth")
@@ -40,35 +45,35 @@ def chart():
         st.progress(hype/100)
 
         if hype > 80:
-            st.success("🚀 Product is likely to go VIRAL!")
+            st.success("Product is likely to go VIRAL!")
         elif hype > 50:
-            st.info("📈 Product may become popular.")
+            st.info("Product may become popular.")
         else:
             st.warning("⚠ Product growth may be slow.")
 
         st.subheader(f"Earlyer Adopters: {early}") 
         if early > 100:
             st.success("People are Loving the Product!💓")
-        elif hype > 50:
+        elif early > 50:
             st.info("People May like the Product!😊")
         else:
             st.warning("⚠ Product are not Liking the Product.")
 
         st.subheader(f"Buyers: {buyer}")
         if buyer > k*0.3:
-         st.success("🛒 Strong purchase activity! Many users are buying the product.")
+         st.success("Strong purchase activity! Many users are buying the product.")
         elif buyer > k*0.2:
-            st.info("📊 Moderate buying interest from users.")
+            st.info("Moderate buying interest from users.")
         else:
             st.warning("⚠ Buying activity is currently low.")
         
         st.subheader(f"Passive User: {passive}")
         if passive > 200:
-            st.warning("👀 Many users are only observing the product but not buying yet.")
+            st.warning("Many users are only observing the product but not buying yet.")
         elif passive > 100:
             st.info("Some users are interested but waiting before purchasing.")
         else:
-            st.success("👍 Most users are actively adopting the product!")
+            st.success("Most users are actively adopting the product!")
 
         st.divider()
         st.subheader("Pie Chart Analysis")
