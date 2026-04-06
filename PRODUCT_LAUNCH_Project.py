@@ -23,9 +23,9 @@ def popularity_model(p0,k,r,alpha,days):
 def chart():
         st.warning(f"Let's Observe Product: {name}",width=300)
         fig, ax = plt.subplots()
-        if r < 0.02 and alpha < 0.02:
+        if r <= 0.02 and alpha <= 0.02:
             label = "Low Growth"
-        elif r < 0.05 and alpha < 0.05:
+        elif r < 0.02 and alpha <= 0.05:
              label = "Medium Growth"
         else:
             label = "High Growth"
@@ -193,6 +193,3 @@ if st.session_state.page==2:
         👥 User distribution (early adopters, buyers, passive users)
         📊 Prediction of product success""")
         st.button("**BACK**",on_click=pageone)
-            
-        
-    
