@@ -49,13 +49,13 @@ def chart():
         elif hype > 50:
             st.info("Product may become popular.")
         else:
-            st.warning("⚠ Product growth may be slow.")
+            st.warning("Product growth may be slow.")
 
         st.subheader(f"Earlyer Adopters: {early}") 
         if early > 100:
-            st.success("People are Loving the Product!💓")
+            st.success("People are Loving the Product!")
         elif early > 50:
-            st.info("People May like the Product!😊")
+            st.info("People May like the Product!")
         else:
             st.warning("⚠ Product are not Liking the Product.")
 
